@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/app_theme.dart';
+import 'package:lab2/constants/assets.dart';
 import 'package:lab2/model/recipe_database/recipe_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +29,15 @@ class _TimeControlState extends State<TimeControl> {
             });
           },
         ),
-        Text('${_time.round()} min'),
+        Row(
+  mainAxisAlignment: MainAxisAlignment.end,
+  children: [Image.asset(Assets.timeIcon, height: 16),SizedBox(width: 12,),
+    Padding(
+      padding: const EdgeInsets.only(right: AppTheme.paddingLarge),
+      child: Text('${_time.round()} min'),
+    ),
+  ],
+),
       ],
     );
   }

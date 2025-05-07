@@ -11,6 +11,13 @@ class RecipeHandler extends ChangeNotifier {
   final List<Recipe> _matchedRecipes = [];
 
   final SearchFilter _filter = SearchFilter.withoutName(null, 0, null, 0, null);
+  String? _selectedMainIngredient; 
+
+  String? get selectedMainIngredient => _selectedMainIngredient;
+
+  String? _selectedKitchen; 
+
+  String? get selectedKitchen => _selectedKitchen;
 
   RecipeHandler() {
     _loadRecipes();
@@ -19,7 +26,17 @@ class RecipeHandler extends ChangeNotifier {
   List<Recipe> get recipes => _recipes;
 
   List<Recipe> get bestMatches => _matchedRecipes;
-
+ 
+   void setMainIngredient(String? mainIngredient) {
+    if (mainIngredient != 'Visa alla') {
+      _filter.mainIngredient = mainIngredient;
+      _selectedMainIngredient = mainIngredient; // <-- uppdatera
+    } else {
+      _filter.mainIngredient = null;
+      _selectedMainIngredient = null; // <-- nollställ
+    }
+    _matchRecipes();
+  }
   void setDifficulty(String? difficulty) {
     if (difficulty != 'Alla') {
       _filter.difficulty = difficulty;
@@ -37,8 +54,10 @@ class RecipeHandler extends ChangeNotifier {
   void setCuisine(String? cuisine) {
     if (cuisine != 'Visa alla') {
       _filter.cuisine = cuisine;
+      _selectedKitchen = cuisine; 
     } else {
       _filter.cuisine = null;
+      _selectedKitchen = null;
     }
     _matchRecipes();
   }
@@ -48,14 +67,7 @@ class RecipeHandler extends ChangeNotifier {
     _matchRecipes();
   }
 
-  void setMainIngredient(String? mainIngredient) {
-    if (mainIngredient != 'Visa alla') {
-      _filter.mainIngredient = mainIngredient;
-    } else {
-      _filter.mainIngredient = null;
-    }
-    _matchRecipes();
-  }
+  
 
   void _matchRecipes() {
     _matchedRecipes.clear();

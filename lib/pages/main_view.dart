@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/app_theme.dart';
 import 'package:lab2/widgets/difficulty_control.dart';
 import 'package:lab2/widgets/ingredient_control.dart';
 import 'package:lab2/widgets/kitchen_control.dart';
+import 'package:lab2/widgets/logo.dart';
 
 import 'package:lab2/widgets/price_control.dart';
 import 'package:lab2/widgets/recipe_area.dart';
@@ -18,13 +20,50 @@ Widget build(BuildContext context) {
    );
 }
 
-Widget _controlPanel(context, {double width = 320}) {
-   return Container(
-      width: width,
-      color: const Color.fromARGB(255, 193, 210, 218),
-      child: SingleChildScrollView(child: Column(children: [Padding(padding:const EdgeInsets.all(16.0), child: Text("Receptsök")), Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: Text("Hitta ett recept som passar genom att ändra instälningarna nedanför")), Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: Row(children:[Text("ingredients"), SizedBox(width: 16), IngredientControl()])), Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: Row(children:[Text("cuisine"), SizedBox(width: 16), kitchenControl()])), Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: Row(children:[SizedBox(width: 115), Text("Difficulty")])),Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: DifficulyControl()),Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: Text("Maxpris")),Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: PriceControl()), Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: Text("Maxtid")),Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), child: TimeControl())])),
-   );
+Widget _controlPanel(BuildContext context, {double width = 320}) {
+  return Container(
+    width: width,
+    color: const Color.fromARGB(255, 193, 210, 218),
+    child: SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0), // Yttre padding för hela panelen
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            logo(), // Loggan
+            const SizedBox(height: 16), // Luft efter loggan
+
+            const Text(
+              "Hitta ett recept som passar genom att ändra inställningarna nedanför",
+              style: AppTheme.smallHeading,
+            ),
+
+            const SizedBox(height: 16),
+            IngredientControl(),
+            const SizedBox(height: 12),
+            kitchenControl(),
+
+            const SizedBox(height: 24),
+            const Text("Svårighetsgrad", style: AppTheme.smallHeading),
+            const SizedBox(height: 8),
+            DifficulyControl(),
+
+            const SizedBox(height: 16),
+            const Text("Maxpris", style: AppTheme.smallHeading),
+            const SizedBox(height: 8),
+            PriceControl(),
+
+            const SizedBox(height: 16),
+            const Text("Maxtid", style: AppTheme.smallHeading),
+            const SizedBox(height: 8),
+            TimeControl(),
+          ],
+        ),
+      ),
+    ),
+  );
 }
+
 
 
 }
